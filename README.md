@@ -30,10 +30,8 @@ go test -v
 ## Usage
 
 ```
-```
 aesgo encrypt -key <key> -plaintext <text> [-mode ecb|cbc]
 aesgo decrypt -key <key> -ciphertext <hex> [-mode ecb|cbc]
-```
 ```
 
 The key is passed as a UTF-8 string and must be 16, 24, or 32 bytes long. The app will determine the appropriate AES variant and number of rounds as follows:
