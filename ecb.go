@@ -9,15 +9,10 @@ const blockSize = 16 // AES block size is always 16 bytes, regardless of key siz
 
 // ECBEncrypt encrypts plaintext using AES in ECB (Electronic Codebook) mode.
 //
-// In ECB mode each 16-byte block is encrypted independently with the same key.
-// The plaintext is padded to a block boundary with PKCS#7 before encryption.
+// Plaintext is padded to a block boundary with PKCS#7 then each 16-byte block
+// is encrypted independently with the same key.
 //
-// The key must be 16, 24, or 32 bytes for AES-128, AES-192, or AES-256.
-// The returned ciphertext has the same length as the padded plaintext.
-//
-// Note: ECB mode is deterministic — identical plaintext blocks always produce
-// identical ciphertext blocks, which leaks structural information. It is used
-// here for educational purposes.
+// See NIST SP 800-38A (Section 6.1) and https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#ECB
 func ECBEncrypt(key, plaintext []byte) ([]byte, error) {
 	if err := validateKey(key); err != nil {
 		return nil, err
@@ -37,11 +32,10 @@ func ECBEncrypt(key, plaintext []byte) ([]byte, error) {
 
 // ECBDecrypt decrypts ciphertext using AES in ECB mode.
 //
-// Each 16-byte block is decrypted independently. PKCS#7 padding is removed
-// from the resulting plaintext.
+// Each 16-byte block is decrypted independently then PKCS#7 padding is removed.
+// The ciphertext length must be a non-zero multiple of 16 bytes.
 //
-// The key must be 16, 24, or 32 bytes. The ciphertext length must be a
-// non-zero multiple of 16 bytes.
+// See NIST SP 800-38A (Section 6.1)
 func ECBDecrypt(key, ciphertext []byte) ([]byte, error) {
 	if err := validateKey(key); err != nil {
 		return nil, err
