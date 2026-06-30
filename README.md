@@ -10,7 +10,6 @@ Supports **AES-128, AES-192, and AES-256** in **ECB** and **CBC** modes, with a 
 
 *ps. yes, the tests are AI-generated. They are at least reasonably robust. So much to do, so little time...*
 
----
 
 ## Build & Run
 
@@ -25,7 +24,6 @@ Run the tests (FIPS 197, NIST AESAVS, symmetry and CBC chaining):
 go test -v
 ```
 
----
 
 ## Usage
 
@@ -61,6 +59,7 @@ aesgo decrypt -key "mysecretkey12345" -ciphertext "0e8a766ad5546838c83a79ae08b1e
 
 > **Note on ECB mode:** ECB encrypts each 16-byte block independently, so identical plaintext blocks always produce identical ciphertext blocks. For more info on this weakness see [Wikipedia: Block cipher mode of operation](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Electronic_codebook_(ECB))
 
+
 ### CBC (Cipher Block Chaining) mode
 
 ```sh
@@ -73,7 +72,6 @@ aesgo decrypt -key "mysecretkey12345" -ciphertext "0e8a766ad5546838c83a79ae08b1e
 
 In CBC mode a random IV is embedded in the ciphertext output (first 16 bytes) and extracted automatically on decryption.
 
----
 
 ## Implementation
 
@@ -88,7 +86,6 @@ The source is split into six files, each with a single focused concern:
 | `padding.go`  | PKCS#7 padding and unpadding |
 | `aesgo.go`    | CLI entry point (`encrypt` / `decrypt` subcommands with `-mode` flag) |
 
----
 
 ## One day...
 
@@ -97,7 +94,6 @@ I'd like to add more modes of operation to this implementaion:
 - Counter (CTR) mode
 - Galois Counter Mode (GCM), and perhaps GCM-SIV (I don't understand the maths behind Galois/finite fields well enough yet for this one).
 
----
 
 ## References
 
